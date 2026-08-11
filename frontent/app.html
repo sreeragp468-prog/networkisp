@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Network Configuration Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      padding-bottom: 96px;
+      background-color: #F8FAFC;
+      color: #191c1e;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    a { text-decoration: none; color: inherit; }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header style="background-color: #ffffff; width: 100%; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; height: 68px; max-width: 1280px; margin: 0 auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="table.html" style="background: #F1F5F9; border: none; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #475569;" onmouseover="this.style.backgroundColor='#E2E8F0'" onmouseout="this.style.backgroundColor='#F1F5F9'">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </a>
+      <h1 id="formTitle" style="font-size: 20px; font-weight: 700; margin: 0; color: #0F172A;">Network Details Form</h1>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="table.html" style="background-color: #003ec7; color: white; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+        <span class="material-symbols-outlined">table_chart</span>
+        <span>View Records Table</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Form Content -->
+  <main style="max-width: 800px; margin: 32px auto 0; padding: 0 16px; box-sizing: border-box;">
+    
+    <!-- Hero Header Banner Card -->
+    <section style="border-radius: 16px; overflow: hidden; box-shadow: 0px 10px 25px rgba(0,0,0,0.03); background-color: #ffffff; margin-bottom: 32px;">
+      <img alt="Modern internet router" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8BehaRD_aFqnuDpwjv12Y1ZMNWR5uL0_A0eqaFjdQKiqrEc4jNCbdxDbEdDHAYhxH9_n6rZCOWtCJ2j_II2d2W_NB7aHqd7_UszNZSgtVJg_A3IgC7_gpt8fjH8vvSHCX7A7DV9ibCJwudGGDPyooBmOPwOJRxlyGfQyOosYCRpw2FiyWonRPD081i9xvL-ekGlr_Qw56YWLHEH-IeMGumB1NuBSaHspZ_caNH0FS_oVgSPX9CxzB" style="width: 100%; height: 192px; object-fit: cover; display: block;"/>
+    </section>
+
+    <!-- Network Configuration Entry Form Card -->
+    <section style="background-color: #ffffff; border-radius: 16px; box-shadow: 0px 10px 25px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; padding: 28px; margin-bottom: 32px; box-sizing: border-box;">
+      
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid #e0e3e5; padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="material-symbols-outlined" style="color: #003ec7; font-size: 24px;">settings</span>
+          <h2 id="sectionHeader" style="font-size: 18px; line-weight: 700; margin: 0; color: #191c1e;">Enter Configuration Details</h2>
+        </div>
+        <span id="modeBadge" style="background-color: #EFF6FF; color: #1E40AF; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600;">NEW ENTRY</span>
+      </div>
+
+      <form id="networkForm" style="display: flex; flex-direction: column; gap: 20px; margin-top: 16px;">
+        <input type="hidden" id="recordId" value=""/>
+
+        <!-- ISP Name -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">ISP Name *</label>
+          <div style="position: relative;">
+            <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+              <span class="material-symbols-outlined" style="color: #737688;">language</span>
+            </div>
+            <input type="text" id="ispName" required placeholder="e.g. AetherNet Global" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: all 0.3s ease;" onfocus="this.style.backgroundColor='#ffffff'; this.style.borderColor='#003ec7'; this.style.boxShadow='0 0 0 3px rgba(0, 62, 199, 0.1)'; this.style.outline='none';" onblur="this.style.backgroundColor='#F1F5F9'; this.style.borderColor='#E2E8F0'; this.style.boxShadow='none';"/>
+          </div>
+        </div>
+
+        <!-- User Name -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">User Name *</label>
+          <div style="position: relative;">
+            <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+              <span class="material-symbols-outlined" style="color: #737688;">person</span>
+            </div>
+            <input type="text" id="userName" required placeholder="e.g. admin_user_01" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: all 0.3s ease;" onfocus="this.style.backgroundColor='#ffffff'; this.style.borderColor='#003ec7'; this.style.boxShadow='0 0 0 3px rgba(0, 62, 199, 0.1)'; this.style.outline='none';" onblur="this.style.backgroundColor='#F1F5F9'; this.style.borderColor='#E2E8F0'; this.style.boxShadow='none';"/>
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">Contact Phone *</label>
+          <div style="position: relative;">
+            <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+              <span class="material-symbols-outlined" style="color: #737688;">call</span>
+            </div>
+            <input type="tel" id="contactPhone" required placeholder="e.g. +1 (555) 019-2834" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: all 0.3s ease;" onfocus="this.style.backgroundColor='#ffffff'; this.style.borderColor='#003ec7'; this.style.boxShadow='0 0 0 3px rgba(0, 62, 199, 0.1)'; this.style.outline='none';" onblur="this.style.backgroundColor='#F1F5F9'; this.style.borderColor='#E2E8F0'; this.style.boxShadow='none';"/>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">Service Address *</label>
+          <div style="position: relative;">
+            <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+              <span class="material-symbols-outlined" style="color: #737688;">home_pin</span>
+            </div>
+            <input type="text" id="serviceAddress" required placeholder="e.g. 128 Gigabit Ave, Tech District" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: all 0.3s ease;" onfocus="this.style.backgroundColor='#ffffff'; this.style.borderColor='#003ec7'; this.style.boxShadow='0 0 0 3px rgba(0, 62, 199, 0.1)'; this.style.outline='none';" onblur="this.style.backgroundColor='#F1F5F9'; this.style.borderColor='#E2E8F0'; this.style.boxShadow='none';"/>
+          </div>
+        </div>
+
+        <!-- Grid for Port, Location, and Status -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+          <!-- Port Number -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">Port Number *</label>
+            <div style="position: relative;">
+              <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+                <span class="material-symbols-outlined" style="color: #737688;">dns</span>
+              </div>
+              <input type="number" id="portNumber" required min="1" max="65535" placeholder="8080" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: all 0.3s ease;" onfocus="this.style.backgroundColor='#ffffff'; this.style.borderColor='#003ec7'; this.style.boxShadow='0 0 0 3px rgba(0, 62, 199, 0.1)'; this.style.outline='none';" onblur="this.style.backgroundColor='#F1F5F9'; this.style.borderColor='#E2E8F0'; this.style.boxShadow='none';"/>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">Location *</label>
+            <div style="position: relative;">
+              <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+                <span class="material-symbols-outlined" style="color: #737688;">location_on</span>
+              </div>
+              <input type="text" id="location" required placeholder="Server Rack B" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: all 0.3s ease;" onfocus="this.style.backgroundColor='#ffffff'; this.style.borderColor='#003ec7'; this.style.boxShadow='0 0 0 3px rgba(0, 62, 199, 0.1)'; this.style.outline='none';" onblur="this.style.backgroundColor='#F1F5F9'; this.style.borderColor='#E2E8F0'; this.style.boxShadow='none';"/>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #434656; margin-bottom: 6px;">Status</label>
+            <div style="position: relative;">
+              <div style="position: absolute; top: 0; bottom: 0; left: 0; padding-left: 12px; display: flex; align-items: center; pointer-events: none;">
+                <span class="material-symbols-outlined" style="color: #737688;">toggle_on</span>
+              </div>
+              <select id="status" style="background-color: #F1F5F9; border: 1.5px solid #E2E8F0; width: 100%; padding-left: 40px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; box-sizing: border-box; outline: none; cursor: pointer;">
+                <option value="Active">Active</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Submit Button -->
+        <div style="padding-top: 12px;">
+          <button type="submit" id="submitBtn" style="background-color: #003ec7; color: #ffffff; border: none; cursor: pointer; width: 100%; padding-top: 12px; padding-bottom: 12px; border-radius: 8px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0px 10px 25px rgba(0, 62, 199, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)';">
+            <span id="submitBtnText">Save Network Details</span>
+            <span class="material-symbols-outlined">save</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const editId = urlParams.get('edit');
+
+      if (editId) {
+        document.getElementById('formTitle').innerText = 'Edit Network Configuration';
+        document.getElementById('sectionHeader').innerText = 'Modify Record Details';
+        document.getElementById('modeBadge').innerText = 'EDIT MODE';
+        document.getElementById('modeBadge').style.backgroundColor = '#FEF3C7';
+        document.getElementById('modeBadge').style.color = '#92400E';
+        document.getElementById('submitBtnText').innerText = 'Update Network Configuration';
+        document.getElementById('recordId').value = editId;
+
+        const res = await ApiService.getById(editId);
+        if (res.success && res.data) {
+          const d = res.data;
+          document.getElementById('ispName').value = d.ispName || '';
+          document.getElementById('userName').value = d.userName || '';
+          document.getElementById('contactPhone').value = d.contactPhone || '';
+          document.getElementById('serviceAddress').value = d.serviceAddress || '';
+          document.getElementById('portNumber').value = d.portNumber || '';
+          document.getElementById('location').value = d.location || '';
+          document.getElementById('status').value = d.status || 'Active';
+        }
+      }
+
+      // Handle Form Submit
+      document.getElementById('networkForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const id = document.getElementById('recordId').value;
+        const formData = {
+          ispName: document.getElementById('ispName').value.trim(),
+          userName: document.getElementById('userName').value.trim(),
+          contactPhone: document.getElementById('contactPhone').value.trim(),
+          serviceAddress: document.getElementById('serviceAddress').value.trim(),
+          portNumber: parseInt(document.getElementById('portNumber').value, 10),
+          location: document.getElementById('location').value.trim(),
+          status: document.getElementById('status').value
+        };
+
+        let result;
+        if (id) {
+          result = await ApiService.update(id, formData);
+        } else {
+          result = await ApiService.create(formData);
+        }
+
+        if (result.success) {
+          setTimeout(() => {
+            window.location.href = 'table.html';
+          }, 800);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
