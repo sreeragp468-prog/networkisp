@@ -65,8 +65,7 @@ const parseBody = (req) => {
   });
 };
 
-// Create HTTP Server
-const server = http.createServer(async (req, res) => {
+const requestListener = async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
   const method = req.method.toUpperCase();
@@ -164,12 +163,19 @@ const server = http.createServer(async (req, res) => {
     console.error('[Request Handling Error]', err);
     sendJSON(res, 500, { success: false, message: 'Server processing error' });
   }
-});
+};
 
-server.listen(PORT, () => {
-  console.log(`=================================================`);
-  console.log(`🚀 Networking MVC API Server running on port ${PORT}`);
-  console.log(`📊 Table View: http://localhost:${PORT}/table.html`);
-  console.log(`📝 Form Entry: http://localhost:${PORT}/app.html`);
-  console.log(`=================================================`);
-});
+// Create HTTP Server
+const server = http.createServer(requestListener);
+
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`=================================================`);
+    console.log(`🚀 Networking MVC API Server running on port ${PORT}`);
+    console.log(`📊 Table View: http://localhost:${PORT}/table.html`);
+    console.log(`📝 Form Entry: http://localhost:${PORT}/app.html`);
+    console.log(`=================================================`);
+  });
+}
+
+module.exports = requestListener;
