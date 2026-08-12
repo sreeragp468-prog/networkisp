@@ -1,35 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "frontent/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/server.js"
-    },
-    {
-      "src": "/",
-      "dest": "frontent/table.html"
-    },
-    {
-      "src": "/table.html",
-      "dest": "frontent/table.html"
-    },
-    {
-      "src": "/app.html",
-      "dest": "frontent/app.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontent/$1"
-    }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/", "destination": "/frontent/table.html" },
+    { "source": "/table.html", "destination": "/frontent/table.html" },
+    { "source": "/app.html", "destination": "/frontent/app.html" },
+    { "source": "/app.js", "destination": "/frontent/app.js" }
   ]
 }
