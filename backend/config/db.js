@@ -2,6 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
+// Load environment variables from .env files
+try {
+  require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+  require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env') });
+} catch (e) {
+  // Dotenv loading optional
+}
+
 let mongoose = null;
 try {
   mongoose = require('mongoose');
@@ -16,9 +24,7 @@ let inMemoryData = null;
 
 // Helper to initialize memory data
 const loadInitialData = () => {
-  if (inMemoryData) return inMemoryData;
-
-  // Try primary DB file
+  // Try primary DB file first
   try {
     if (fs.existsSync(PRIMARY_DB_FILE)) {
       const raw = fs.readFileSync(PRIMARY_DB_FILE, 'utf8');
@@ -39,6 +45,8 @@ const loadInitialData = () => {
   } catch (e) {
     // Ignore tmp read error
   }
+
+  if (inMemoryData) return inMemoryData;
 
   // Initial sample data if no file is present
   inMemoryData = [
@@ -82,36 +90,52 @@ const safeWriteDB = (data) => {
   }
 };
 
-let isMongoConnected = false;
+let connectPromise = null;
 
 const connectDB = async () => {
   if (!mongoose) {
     console.log(`[Database] Mongoose package not loaded. Using JSON database storage engine.`);
-    isMongoConnected = false;
-    return;
+    return false;
   }
-  const mongoURI = process.env.MONGO_URI;
+
+  if (mongoose.connection.readyState === 1) {
+    return true;
+  }
+
+  const mongoURI = process.env.MONGO_URI || process.env.MONGODB_URI;
   if (!mongoURI) {
     console.log(`[Database] MONGO_URI environment variable not defined. Using JSON database storage engine.`);
-    isMongoConnected = false;
-    return;
+    return false;
   }
+
+  if (connectPromise) {
+    try {
+      await connectPromise;
+      return mongoose.connection.readyState === 1;
+    } catch (e) {
+      return false;
+    }
+  }
+
   try {
     mongoose.set('strictQuery', false);
-    await mongoose.connect(mongoURI, {
-      serverSelectionTimeoutMS: 3000
+    connectPromise = mongoose.connect(mongoURI, {
+      serverSelectionTimeoutMS: 4000
     });
-    isMongoConnected = true;
+    await connectPromise;
     console.log(`[Database] MongoDB Connected Successfully: ${mongoose.connection.host}`);
+    return true;
   } catch (err) {
-    isMongoConnected = false;
+    connectPromise = null;
     console.log(`[Database] MongoDB connection bypassed (${err.message}). Using JSON database engine.`);
+    return false;
   }
 };
 
 const getStorage = () => {
+  const isConnected = Boolean(mongoose && mongoose.connection.readyState === 1);
   return {
-    isMongoConnected,
+    isMongoConnected: isConnected,
     PRIMARY_DB_FILE,
     readJSONDB: () => loadInitialData(),
     writeJSONDB: (data) => safeWriteDB(data)

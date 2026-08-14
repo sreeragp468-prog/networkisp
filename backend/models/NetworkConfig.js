@@ -48,7 +48,7 @@ if (mongoose) {
     }
   );
 
-  module.exports = mongoose.model('NetworkConfig', networkConfigSchema);
+  module.exports = mongoose.models.NetworkConfig || mongoose.model('NetworkConfig', networkConfigSchema);
 } else {
   module.exports = null;
 }

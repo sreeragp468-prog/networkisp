@@ -1,6 +1,11 @@
-const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port === '5500'
-  ? 'http://localhost:5000/api/networks'
-  : '/api/networks';
+const API_BASE = (() => {
+  const isFile = window.location.protocol === 'file:';
+  const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (isFile || (isLocalHost && window.location.port !== '5000')) {
+    return 'http://localhost:5000/api/networks';
+  }
+  return '/api/networks';
+})();
 
 // Toast Notification System
 function showToast(message, type = 'success') {
@@ -48,6 +53,26 @@ function showToast(message, type = 'success') {
   }, 4000);
 }
 
+// LocalStorage Backup Cache Helper
+const LocalCache = {
+  key: 'network_manager_records',
+  get() {
+    try {
+      const raw = localStorage.getItem(this.key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+  save(data) {
+    try {
+      if (Array.isArray(data)) {
+        localStorage.setItem(this.key, JSON.stringify(data));
+      }
+    } catch (e) {}
+  }
+};
+
 // API Service Layer
 const ApiService = {
   async getAll(search = '', status = '') {
@@ -59,9 +84,29 @@ const ApiService = {
       const res = await fetch(`${API_BASE}?${params.toString()}`);
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || 'Failed to fetch network records');
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        LocalCache.save(json.data);
+      }
       return json;
     } catch (err) {
       console.error('Fetch error:', err);
+      const cached = LocalCache.get();
+      if (cached && cached.length > 0) {
+        let filtered = cached;
+        if (status && status !== 'All') {
+          filtered = filtered.filter(i => i.status === status);
+        }
+        if (search) {
+          const q = search.toLowerCase();
+          filtered = filtered.filter(i =>
+            (i.ispName && i.ispName.toLowerCase().includes(q)) ||
+            (i.userName && i.userName.toLowerCase().includes(q)) ||
+            (i.location && i.location.toLowerCase().includes(q)) ||
+            (i.serviceAddress && i.serviceAddress.toLowerCase().includes(q))
+          );
+        }
+        return { success: true, count: filtered.length, data: filtered };
+      }
       showToast(err.message, 'error');
       return { success: false, data: [] };
     }
@@ -75,6 +120,11 @@ const ApiService = {
       return json;
     } catch (err) {
       console.error('GetById error:', err);
+      const cached = LocalCache.get();
+      if (cached) {
+        const item = cached.find(i => String(i._id) === String(id));
+        if (item) return { success: true, data: item };
+      }
       showToast(err.message, 'error');
       return { success: false, data: null };
     }

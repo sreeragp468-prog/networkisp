@@ -1,3 +1,7 @@
+try {
+  require('dotenv').config({ path: path.join(__dirname, '.env') });
+} catch (e) {}
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -78,6 +82,11 @@ const requestListener = async (req, res) => {
       'Access-Control-Allow-Headers': 'Content-Type'
     });
     return res.end();
+  }
+
+  // Ensure DB connection attempt completes for API routes
+  if (pathname && pathname.startsWith('/api/')) {
+    await connectDB();
   }
 
   // Create Express-like req/res wrappers for MVC Controller compatibility
